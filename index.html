@@ -7,8 +7,37 @@
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>Slide 1</section>
-        <section>Slide 2</section>
+        <section>NU.nl, Kubernetes, Kops, EKS</section>
+        <section data-markdown>
+          <textarea data-template>
+# NU.nl
+
+* Biggest news site in NL
+* 2mln unique daily visitors
+* 7mln unique monthly visitors
+* API: ~3000 rps
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+# Outline
+
+* AWS
+* Terraform + Ansible
+* Python + Nodejs
+* Applications include: 
+  * API
+  * CMS
+  * Frontend
+  * Commenting platform
+  * New GraphQL API
+  * Other APIs
+  * Misc.
+
+          </textarea>
+        </section>
+
       </div>
     </div>
     <script src="reveal.js/dist/reveal.js"></script>
@@ -22,6 +51,7 @@
         controls: true,
         progress: true,
         hash: true,
+        center: false,
 
         transition: 'none', // none/fade/slide/convex/concave/zoom
 
