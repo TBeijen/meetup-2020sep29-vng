@@ -41,18 +41,10 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 
 .reveal {
   font-family: "Source Sans Pro", Helvetica, sans-serif;
-  font-size: 42px;
+  font-size: 20px;
   font-weight: normal;
-  color: #222; }
-
-
-  .reveal {
-    font-family: "Source Sans Pro", Helvetica, sans-serif;
-    font-size: 20px;
-    font-weight: normal;
-    line-height: 1.4;
-    color: #18154D;
-  }
+  line-height: 1.4;
+  color: #18154D; }
 
 .reveal ::selection {
   color: #fff;
@@ -64,6 +56,10 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   background: #98bdef;
   text-shadow: none; }
 
+.reveal .slides {
+  text-align: left;
+}
+  
 .reveal .slides section,
 .reveal .slides section > section {
   line-height: 1.3;
@@ -78,37 +74,39 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 .reveal h4,
 .reveal h5,
 .reveal h6 {
-  margin: 0 0 20px 0;
-  color: #222;
+  margin: 0 0 10px 0;
+  color: #18154D;
   font-family: "Source Sans Pro", Helvetica, sans-serif;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: normal;
-  text-transform: uppercase;
   text-shadow: none;
   word-wrap: break-word; }
 
 .reveal h1 {
-  font-size: 2.5em; }
-
-.reveal h2 {
   font-size: 1.6em; }
 
+.reveal h2 {
+  font-size: 1.2em; 
+  color: #C00000;
+  margin-bottom: 20px;
+}
+
 .reveal h3 {
-  font-size: 1.3em; }
+  font-size: 1.2em; }
 
 .reveal h4 {
   font-size: 1em; }
 
 .reveal h1 {
   text-shadow: none; }
-
+  
 /*********************************************
  * OTHER
  *********************************************/
 .reveal p {
-  margin: 20px 0;
-  line-height: 1.3; }
+  margin: 10px 0;
+}
 
 /* Ensure certain elements are never larger than the slide itself */
 .reveal img,
@@ -148,7 +146,7 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
 .reveal ol ol,
 .reveal ol ul {
   display: block;
-  margin-left: 40px; }
+  margin-left: 0px; }
 
 .reveal dt {
   font-weight: bold; }
@@ -202,8 +200,9 @@ section.has-dark-background, section.has-dark-background h1, section.has-dark-ba
   border-spacing: 0; }
 
 .reveal table th {
-  font-weight: bold; }
-
+  background-color: #EEE;
+}
+  
 .reveal table th,
 .reveal table td {
   text-align: left;

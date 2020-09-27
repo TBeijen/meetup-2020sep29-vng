@@ -1,0 +1,16 @@
+code {
+    padding:4px 10px;
+    font-size: 80%;
+    color: #f92672;
+    background-color: #EEE;
+    border: 1px solid #CCC;
+    border-radius: 3px;
+}
+
+pre code {
+    font-size: 100%;
+}
+
+.reveal .slides section.center {
+    text-align: center;
+}

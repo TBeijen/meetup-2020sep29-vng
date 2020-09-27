@@ -1,16 +1,17 @@
 <html>
   <head>
     <link rel="stylesheet" href="reveal.js/dist/reveal.css">
-    <link rel="stylesheet" href="theme/white.css">
+    <link rel="stylesheet" href="theme/white-edit.css">
     <link rel="stylesheet" href="theme/nunl-white-addon.css">
   </head>
   <body>
     <div class="reveal">
       <div class="slides">
-        <section>NU.nl, Kubernetes, Kops, EKS</section>
+        <section class="center" data-background="#18154D">NU.nl, Kubernetes, Kops, EKS</section>
         <section data-markdown>
           <textarea data-template>
 # NU.nl
+## Some numbers
 
 * Biggest news site in NL
 * 2mln unique daily visitors
@@ -21,7 +22,8 @@
 
         <section data-markdown>
           <textarea data-template>
-# Outline
+# DevOps
+## What, where and how we run software
 
 * AWS
 * Terraform + Ansible
@@ -37,6 +39,191 @@
 
           </textarea>
         </section>
+
+        <section class="center" data-background="#18154D">Leading up to Kubernetes</section>
+
+        <section data-markdown>
+          <textarea data-template>
+# Challenges
+## Early 2018, infra as code, but also held baack by...
+
+* No scaling
+
+    *  AWS setup lift & shift from old pre- public cloud stack
+
+* Ansible
+
+    * Nice at first but increasingly complex on long-lived infra
+
+* Capistrano 'scripted' deploys (via Webistrano web interface)
+
+    * Complex. Slow deploys. Inefficient. Error-prone.
+
+* Chicken - egg
+
+    * Updating infra requires changing deploy mechanism
+    * Changing deploy mechanism requires portable build results
+    * Zipped virtualenv folders are hardly portable
+    
+        * Are EC2s concistent accross stages?
+        * Are EC2s consistent with build environment?
+          </textarea>
+        </section>
+        
+        <section data-markdown>
+          <textarea data-template>
+# 2018
+## Challenge: Launching NUjij v2
+
+* We need to launch NUjij v2.0
+
+  * Coral Talk
+  * Node.js based application
+  * Vanilla version readily available as container
+  * We need to add customisations via plugins
+
+* Containers look like a good fit.
+
+  * Light-weight
+  * Versatile
+  * Well-established
+
+* Kubernetes looks like a good way to run containers.
+
+  * Out of early-adopters phase
+
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+# Options
+## Can we run Kubernetes?
+
+* re:Invent 2017: Anouncing EKS
+  * ... Not in europe yet
+
+* Google GKE
+  * Tempting at a first glance. Not really an option (for us):
+  
+    * Networking
+    * Integrations
+    * Billing
+    * Support plans
+    * Etc. etc.
+
+* Run your own
+    * Kops, Kubespray, kubeadm
+            
+          </textarea>
+        </section>
+    
+        <section class="center" data-background="#18154D">Running Kops</section>
+
+
+
+        <section data-markdown>
+          <textarea data-template>
+
+# Kubernetes v1
+
+## KOPS
+
+Characteristics:
+
+* Command-line tool
+* Sets up HA control plane (master nodes)
+* Options
+  * Directly provision
+  * Create terraform manifests
+* Performs Kubernetes rolling updates
+  * Add node, drain, remove, repeat
+
+Our implementation:
+
+* One cluster per AWS account
+* Kops templating (= Go templating) for kube-system components
+* Bash script for common tasks
+
+          </textarea>
+        </section>
+    
+        <section data-markdown>
+          <textarea data-template>
+# Kubernetes v1
+## Learnings
+
+* It should be possible to run more than a single cluster per AWS account
+
+  * **Note\:** Has to do with our setup, not a problem in general
+
+* Still not having a 'good' way to deploy updates.
+
+  * Merely bumping an image version is way too limited.
+
+* ETCd
+  
+  * Still a black box. Didn't learn, that's a problem.
+  * Backup/restore?
+  * Not a good combination with single cluster per account restriction.
+
+* Things can break
+  * Don't accidentally have elastic-curator load 90Gb ElasticSearch index.
+    * How a changed default can ruin your ~~day~~ evening.
+  * Requests and limits are important
+
+* Clusters should not be pets
+
+          </textarea>
+        </section>
+    
+        <section data-markdown>
+          <textarea data-template>
+# 2019
+## IT landscape changes
+
+* EKS generally available
+* New options to setup EKS:
+
+  * eksctl
+  * Terraform modules
+
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+
+# 2019
+## So, Kubernetes...
+
+* Pros
+  * Very fast feedback loop
+      * helm template, helm diff: **seconds**
+      * terraform plan/apply: **minutes**
+          * Some problems only appearing at apply-time.
+      * Similar to `pytest -k my-test`
+  * Versatile
+      * Init containers
+      * Mount configmaps as files
+          * No _need_ to build own nginx image
+  * Easy to navigate
+      * What's running?
+      * Logs
+      * Checking config
+      * Exec into pods if needed for troubleshooting 
+* Cons
+  * Not 'easy', quite some choices to be made
+  * Less easily integrated with rest of AWS 
+    * Either not (yet) possible or more complex
+      * IAM roles (via service accounts)
+      * Security groups (sept. 2020, via service accounts)
+
+          </textarea>
+        </section>
+    
+
+
 
       </div>
     </div>
