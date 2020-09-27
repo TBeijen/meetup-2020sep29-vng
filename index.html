@@ -222,8 +222,243 @@ Our implementation:
           </textarea>
         </section>
     
+        <section class="center" data-background="#18154D">Moving to EKS</section>
 
+        <section data-markdown>
+          <textarea data-template>
 
+# Why EKS?
+## 1/2
+
+* Goal is using Kubernetes, not operating it
+* Less operational responsibility
+  
+  * ETCd
+  * Right-sizing a HA control plane
+
+* Cheaper
+  
+  * 3x m5.large (eu-west-1)
+  
+    * On-demand: 3x ~$78/mo = **#$236/mo**
+    * Reserved: 3x ~$49/mo = **$147/mo**
+  
+  * EKS control plane
+
+    * $0.10/hr = **$72/mo**
+  
+* Positive signals
+
+  * Introduction of IRSA
+  * Introduction of managed nodes
+  * Introduction of EKS Fargate
+  * Increased adoption, no horror stories
+    </textarea>
+  </section>
+  
+  <section data-markdown>
+    <textarea data-template>
+
+# Why EKS?
+## 2/2
+
+* Only accessible via IAM
+
+  * IAM roles easily mapped to RBAC roles
+  * No un/pw backdoors
+
+* Reasons to _not_ run EKS could be:
+
+  * Specific network requirements that are not compatible with AWS VPC CNI plugin
+
+    * Multi-tenancy options EKS as well:
+
+      * Calico
+      * Recently indroduced security groups for pods
+      * Multiple Clusters
+  
+  * Needing parity or integration with clusters elsewhere (mulit- or hybrid cloud)
+   
+  * Needing to run very recent Kubernetes version not yet available on EKS
+
+    * Waiting it out is an option too
+
+  * Requires scale or strict requirements for ROI
+
+          </textarea>
+        </section>
+        
+        <section class="center" data-background="#18154D">EKS</section>
+
+        <section data-markdown>
+          <textarea data-template>
+# EKS Setup
+## Tools
+
+* Terraform
+
+  * terraform-aws-eks
+
+* Helm (v3)
+* Sops
+  
+  * Secrets using AWS KMS
+
+* Helmfile
+* Jenkins pipeline for helmfile
+
+  * Enforces actual config to be in sync with codebase
+            
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+# EKS cluster
+## Single cluster
+
+TODO            
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+
+# EKS clusters
+## Flexibility
+
+TODO  
+            
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+
+# Components
+## Many options
+
+* Skipper (ingress)
+* Fluentd-cloudwatch (logs)
+* Cluster-autoscaler
+* Newrelic agent (logs & metrics)
+* Prometheus operator (metrics)
+
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+# Prometheus operator
+## Metrics for clusters and applications
+
+* Operator that updates Prometheus configuration based on:
+
+  * Servicemonitor
+
+    * Scrape targets
+    * Scrape interval
+    * Supported by quite a number of helm charts
+
+  * Alertrule
+
+    * Promql queries, if condition is not met -> alert
+
+* Comes bundled with
+
+  * Grafana + dashboards
+  * Preconfigured alerts
+  
+* Easy to create custom dashboards (as code) for applications that expose metrics
+            
+          </textarea>
+        </section>
+
+        <section data-markdown>
+          <textarea data-template>
+# Prometheus
+## Batteries included
+
+Who monitors the monitor?
+
+* New Relic infrastructure agent
+* ELK stack
+* Prometheus federation
+
+TODO slack messages, dashboard example
+
+          </textarea>
+        </section>
+
+        <section class="center" data-background="#18154D">Summary & future</section>
+        
+        <section>
+
+          <h1>Comparison</h1>
+          <h2>Evolution</h2>
+          <table>
+            <tr><th></th><th><b>v1</b></th><th><b>v2</b></th></tr>
+            <tr>
+              <th>Provisioning</th><td>Kops</td><td>Terraform</td>
+            </tr>
+            <tr>
+              <th>Kube-system components</th><td>Kops-based templating</td><td>Helm / Helmfile</td>
+            </tr>
+            <tr>
+              <th>Control plane</th><td>self-managed</td><td>EKS</td>
+            </tr>
+            <tr>
+              <th>Max. clusters per AWS account</th><td>1</td><td>Unlimited</td>
+            </tr>
+            <tr>
+              <th>Logging</th><td>ELK (Filebeat)</td><td>Cloudwatch (Fluentd)<sup>1</sup></td>
+            </tr>
+            <tr>
+              <th>Metrics</th><td>ELK (Metricbeat)<br>Prometheus</td><td>New Relic<br>Prometheus operator</td>
+            </tr>
+            <tr>
+              <th>Ingress controller</th><td>Skipper + ip annotations</td><td>Skipper 2x (public/restricted)</td>
+            </tr>
+            <tr>
+              <th>Ingress AWS ALBs</th><td>kube-ingress-aws-controller + <br>Cloudformation</td><td>Terraform provisioned</td>
+            </tr>
+          </table>
+          <p><br><br><sup>1</sup>Becoming increasingly expensive. Search capabilities of insights is not as good as Kibana.</p>
+        </section>
+          
+          
+        <section data-markdown>
+          <textarea data-template>
+# Future
+## Go with the flow
+
+* Either:
+
+  * Explore managed nodes
+  * Consider spot instances
+  * Benefits:
+  
+    * Cost reduction (operations or AWS bill)
+    * Chaos Monkey-ish: Drain, reschedule, all should have 0 effect.
+
+* EKS Fargate
+
+  * Fast scaling
+
+* GitOps
+
+  * Instead of:
+    
+    * Grant CI/CD near-total access to cluster (possibly SaaS)
+  
+    * Do:
+      
+      * Grant cluster access to code repository
+            
+          </textarea>
+        </section>
+
+        <section class="center" data-background="#18154D"><h1>?</h1><p>twitter.com/TBeijen</p><p>www.linkedin.com/tibobeijen</p><p>www.tibobeijen.nl</p></section>
 
       </div>
     </div>
