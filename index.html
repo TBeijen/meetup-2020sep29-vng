@@ -61,7 +61,7 @@
         <section data-markdown>
           <textarea data-template>
 # Challenges
-## Early 2018, infra as code, but also held baack by...
+## Early 2018, infra as code, but also held back by...
 
 * No scaling
 
@@ -134,9 +134,7 @@
           </textarea>
         </section>
     
-        <section class="center" data-background="#18154D">Running Kops</section>
-
-
+        <section class="center" data-background="#18154D">Kops</section>
 
         <section data-markdown>
           <textarea data-template>
@@ -184,7 +182,7 @@ Our implementation:
   * Not a good combination with single cluster per account restriction.
 
 * Things can break
-  * Don't accidentally have elastic-curator load 90Gb ElasticSearch index.
+  * Don't accidentally have elastic-curator load a 90Gb ElasticSearch index in memory.
     * How a changed default can ruin your ~~day~~ evening.
   * Requests and limits are important
 
@@ -289,15 +287,15 @@ Our implementation:
 
     * Multi-tenancy options EKS as well:
 
+      * Multiple Clusters
       * Calico
       * Recently indroduced security groups for pods
-      * Multiple Clusters
   
-  * Needing parity or integration with clusters elsewhere (mulit- or hybrid cloud)
+  * Needing parity or integration with clusters elsewhere (multi- or hybrid cloud)
    
   * Needing to run very recent Kubernetes version not yet available on EKS
 
-    * Waiting it out is an option too
+    * Waiting might be an option too...
 
   * Requires scale or strict requirements for ROI
 
@@ -328,32 +326,17 @@ Our implementation:
           </textarea>
         </section>
 
-        <section data-markdown>
-          <textarea data-template>
-# EKS cluster
-## Single cluster
-
-TODO            
-          </textarea>
-        </section>
-
-        <section data-markdown>
-          <textarea data-template>
-
-# EKS clusters
-## Flexibility
-
-TODO  
-            
-          </textarea>
-        </section>
-
         <section>
-          <h1>Ingress</h1>
-          <h2>Skipper, 2 ingress classes</h2>
+          <h1>EKS Cluster</h1>
+          <h2>Ingress</h2>
           <img style="height: 500px;" src="./img/eks-double-ingress.svg">
         </section>
 
+        <section>
+          <h1>Multiple clusters</h1>
+          <h2>Flexibility</h2>
+          <img style="height: 500px;" src="./img/eks-clusters.svg">
+        </section>
 
         <section data-markdown>
           <textarea data-template>
@@ -486,9 +469,9 @@ TODO
     
     * Grant CI/CD near-total access to cluster (possibly SaaS)
   
-    * Do:
+  * Do:
       
-      * Grant cluster access to code repository
+    * Grant cluster access to code repository
             
           </textarea>
         </section>
